@@ -63,6 +63,7 @@ function promptInit(){
         type: "input",
         message: "What is your office Number?",
         name: "specific",
+        validate: (name)=> !isNaN(name),
         when:function( answers ) {
             return answers.role === "Manager";
           }
@@ -71,6 +72,7 @@ function promptInit(){
         type: "input",
         message: "What is your School's name?",
         name: "specific",
+        validate: validateName,
         when:function( answers ) {
             return answers.role === "Intern";
             }
@@ -79,6 +81,7 @@ function promptInit(){
         type: "input",
         message: "What is your GitHub Username?",
         name: "specific",
+        validate: validateName,
         when:function( answers ) {
             return answers.role === "Engineer";
             }
@@ -118,9 +121,9 @@ function buildEmployee($answers) {
     var html =  render(employees);
     fs.appendFile(outputPath,html,'utf8',
         function(err) { 
-        if (err) throw err;
-        // if no error
-        console.log("Data is appended to file successfully.")
+            if (err) throw err;
+            // if no error
+            console.log("Data is appended to file successfully.")
         }); 
     }
 };
