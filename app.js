@@ -92,7 +92,6 @@ function promptInit(){
 };
 function buildEmployee($answers) {
     const  {name, id, email, role,specific, another} = $answers;
-    console.log($answers);
     switch (role){
         case 'Manager':
            const man = new Manager(name, id, email, specific);
@@ -103,7 +102,7 @@ function buildEmployee($answers) {
             employees.push(engineer);
         break;
         case 'Intern':
-            const intern = new intern(name, id, email, specific);
+            const intern = new Intern(name, id, email, specific);
             employees.push(intern);
          break;
         default:
@@ -115,7 +114,14 @@ function buildEmployee($answers) {
   if(another) {
     buildAnother();  
     } else {
-    console.log('All Done'); 
+    console.log('All Done')
+    var html =  render(employees);
+    fs.appendFile(outputPath,html,'utf8',
+        function(err) { 
+        if (err) throw err;
+        // if no error
+        console.log("Data is appended to file successfully.")
+        }); 
     }
 };
 
@@ -127,3 +133,4 @@ function buildAnother(){
 };
 
 buildAnother();
+
